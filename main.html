@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css.css">
+		<script language="Javascript">
+			function validateForm(){
+				var username=document.myform.username.value;
+				var password=document.myform.password.value;
+				var job;
+				
+				if(document.myform.job[0].checked){
+					job='student';
+				}else{
+					job='professor';
+					}
+				
+				document.cookie="username=" +username;
+				document.cookie="password=" +password;
+				document.cookie="job=" +job;
+				//document.cookie="counter= 0";
+
+				
+				if((username=="") || (password="")){
+					alert("Please enter your username or your password");
+				return (false);
+				}
+				window.location.reload();
+			}
+			
+			function getCookie(name) {
+				var nameEQ = name + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0;i < ca.length;i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1);
+					if (c.indexOf(nameEQ) != -1) return c.substring(nameEQ.length);
+					}
+				return null;
+			}
+			
+			function inCreaseCounter(){
+				var u = getCookie("username");
+				var j = getCookie("job");
+				var a = getCookie("counter");
+				if(a==null)
+				{
+					document.cookie="counter= 1";
+				}else{
+					a++;
+					document.cookie="counter= " +a;
+					}
+					if(u!=null && j!=null)
+				alert("Hello " +u+ ", your job is " +j+ " and you have got " +a+ " visits!");
+			}	
+		</script>
+	</head>
+	<body onLoad="inCreaseCounter()">
+		<h1>My First Page</h1>
+		<p>Homepage: <a href="https://www.cs.teikal.gr">https://www.cs.teikal.gr</a>
+		<p>My personal data:</p>
+		<ul>
+			<li><b>Pantelis Kouridakis</b></li>
+			<li><i>AM: 2015057</i></li>
+			<li><u>Tmima Mixanikwn Pliroforikis</u></li>
+		</ul>
+		<form name="myform" action="http://www.cs.teikal.gr" onSubmit="return validateForm()" method="get">
+			<p>Please login:<br></p>
+			<input type="text" name="username" value="username">
+			<input type="password" name="password" value="password"><br>
+			<input type="radio" name="job" value="student" checked>Student
+			<input type="radio" name="job" value="professor">Professor<br>
+			<input type="submit" name="login" value="Log in">
+		</form>
+	</body>
+</html>
